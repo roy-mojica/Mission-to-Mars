@@ -16,6 +16,7 @@ def scrape_all():
         'news_paragraph': news_paragraph,
         'featured_image': featured_image(browser),
         'facts': mars_facts(),
+        'hemispheres' : hemisphere(browser),
         'last_modified': dt.datetime.now()
     }
 
@@ -97,6 +98,43 @@ def mars_facts():
 
     # Convert dataframe into HTML format, add boostrap
     return df.to_html(classes='table table-striped')
+
+
+# ### Mars Weather
+# def mars_weather(browser):
+#     # Visit the weather website
+#     url = 'https://mars.nasa.gov/insight/weather/'
+#     browser.visit(url)
+
+#     # Parse the data
+#     html = browser.html
+#     weather_soup = soup(html, 'html.parser')
+
+#     # Scrape the Daily Weather Report table
+#     weather_table = weather_soup.find('table', class_='mb_table')
+#     return print(weather_table.prettify())
+
+# # D1: Scrape High-Resolution Mars' Hemisphere Images and Titles
+# ### Hemispheres
+def hemisphere(browser):
+    # 1. Use browser to visit the URL 
+    url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
+    browser.visit(url)
+
+    # 2. Create a list to hold the images and titles.
+    hemisphere_image_urls = []
+
+    # 3. Write code to retrieve the image urls and titles for each hemisphere.
+    for i in range(4):
+        hemispheres = {}
+        image_click = browser.find_by_css('h3')[i].click()
+        full_image = browser.find_by_text('Sample').first['href']
+        title = browser.find_by_tag('h2').first.text
+        hemispheres = {'img_url' : full_image, 'title': title}
+        hemisphere_image_urls.append(hemispheres)
+        browser.back()
+    return hemisphere_image_urls
+
 
 if __name__ == '__main__':
 

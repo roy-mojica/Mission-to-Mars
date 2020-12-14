@@ -22,9 +22,11 @@
             <div class='col-md-12'>
                 <div class='media'>
                     <div class='media-body'>
-                        <h2>Latest Mars News</h2>
-                        <h4 class='media-heading'>{{mars.news_title}}</h4>
-                        <p>{{mars.news_paragraph}}</p>
+                        <h2 class='text-center'>Latest Mars News</h2>
+                        <p class='text-center'>
+                            <h4 class='media-heading'>{{mars.news_title}}</h4>
+                        </p>
+                        <p class='text-center'>{{mars.news_paragraph}}</p>
                     </div>
                 </div>
             </div>
@@ -44,6 +46,24 @@
                 <div class='row' id='mars-facts'>
                     <h4>Mars Facts</h4>
                     {{ mars.facts | safe }}
+                </div>
+            </div>
+        </div>
+        <!-- Mars Hemisphers -->
+        <div class='row' id='mars-hemispheres'>
+            <div class='col-md-12'>
+                <h2 class='text-center'>Mars Hemispheres</h2>
+                <div class='images'>
+                    <dl class='dl-horizontal'>
+                        {% for hemisphere in mars.hemispheres %}
+                        <div class='column'>
+                            <div class='col-md-3'>
+                                <img src={{hemisphere.img_url}} width='200' height='200' class='img-responsive' alt='Responsive image'>
+                                <h4 class='caption' width='200'>{{hemisphere.title}}</h4>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </dl>
                 </div>
             </div>
         </div>
